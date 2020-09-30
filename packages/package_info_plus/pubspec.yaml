@@ -19,7 +19,9 @@ flutter:
         default_package: package_info_plus_macos
       web:
         default_package: package_info_plus_web
-
+      windows:
+        default_package: package_info_plus_windows
+  
 dependencies:
   flutter:
     sdk: flutter
@@ -29,7 +31,9 @@ dependencies:
     path: ../package_info_plus_web
   package_info_plus_macos:
     path: ../package_info_plus_macos
-
+  package_info_plus_windows:
+    path: ../package_info_plus_windows
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
