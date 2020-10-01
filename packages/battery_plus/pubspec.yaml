@@ -13,6 +13,8 @@ flutter:
         pluginClass: FLTBatteryPlugin
       web:
         default_package: battery_plus_web
+      windows:
+        default_package: battery_plus_windows
 
 dependencies:
   flutter:
@@ -22,6 +24,8 @@ dependencies:
     path: ../battery_plus_platform_interface
   battery_plus_web:
     path: ../battery_plus_web
+  battery_plus_windows:
+    path: ../battery_plus_windows
 
 dev_dependencies:
   async: ^2.0.8
