@@ -3,9 +3,12 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io' show Platform;
 
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
+import 'package:connectivity_plus_linux/connectivity_plus_linux.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
 export 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart'
@@ -30,7 +33,26 @@ class Connectivity {
 
   static Connectivity _singleton;
 
-  static ConnectivityPlatform get _platform => ConnectivityPlatform.instance;
+  /// Disables the platform override in order to use a manually registered
+  /// [ConnectivityPlatform] for testing purposes.
+  /// See https://github.com/flutter/flutter/issues/52267 for more details.
+  @visibleForTesting
+  static set disableConnectivityPlatformOverride(bool override) {
+    _disablePlatformOverride = override;
+  }
+
+  static bool _disablePlatformOverride = false;
+  static ConnectivityPlatform __platform;
+
+  // This is to manually endorse the Linux plugin until automatic registration
+  // of dart plugins is implemented.
+  // See https://github.com/flutter/flutter/issues/52267 for more details.
+  static ConnectivityPlatform get _platform {
+    __platform ??= !kIsWeb && Platform.isLinux && !_disablePlatformOverride
+        ? ConnectivityLinux()
+        : ConnectivityPlatform.instance;
+    return __platform;
+  }
 
   /// Fires whenever the connectivity state changes.
   Stream<ConnectivityResult> get onConnectivityChanged {

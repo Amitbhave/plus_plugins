@@ -1,0 +1,29 @@
+name: connectivity_plus_linux
+description: Linux implementation of the connectivity_plus plugin
+homepage: https://github.com/fluttercommunity/connectivity_plus/connectivity_plus_linux
+version: 1.0.0
+
+flutter:
+  plugin:
+    platforms:
+      linux:
+        dartPluginClass: ConnectivityLinux
+        pluginClass: none
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  connectivity_plus_platform_interface:
+    path: ../connectivity_plus_platform_interface
+  dbus: ^0.0.0-dev.20
+  meta: ^1.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mockito: ^4.1.2
+  pedantic: ^1.9.2
